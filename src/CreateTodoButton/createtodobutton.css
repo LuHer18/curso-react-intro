@@ -1,0 +1,19 @@
+.create-todo-button{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: none;
+    position:fixed;
+    cursor: pointer;
+    right: 24px;
+    align-items: center;
+    justify-content: center;
+}
+img {
+    width: 100%;
+    max-width: 24px;
+}
+
+.create-todo-button:hover {
+    transform: rotate(224deg);
+}

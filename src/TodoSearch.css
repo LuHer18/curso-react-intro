@@ -1,0 +1,13 @@
+.nav-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.todo-search {
+    display: flex;
+    outline: none;
+    border-radius: 50vh;
+    
+}
