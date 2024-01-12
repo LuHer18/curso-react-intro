@@ -1,6 +1,5 @@
 import React from "react";
 
-const TodoContext = React.createContext()
 
 /* localStorage.removeItem('TODOS_V1');
 const defaultTodos = [
@@ -14,44 +13,44 @@ localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos)); */
 
 
 function useLocalStorage(itemName, initialValue) {
-    const [item, setItem] = React.useState(initialValue);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(false);
-    
-  
-      React.useEffect(() => {
-      setTimeout(() => {
-        try {
-          const localStorageItem = localStorage.getItem(itemName);
-          let parsedItem;
-        
-          if (!localStorageItem){
-            localStorage.setItem(itemName, JSON.stringify(initialValue));
-            parsedItem = initialValue;
-          } else {
-            parsedItem = JSON.parse(localStorageItem);
-            setItem(parsedItem)
-          }
-    
-          setLoading(false);
-        } catch (error){
-          setLoading(false);
-          setError(true);
+  const [item, setItem] = React.useState(initialValue);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+
+        if (!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorageItem);
+          setItem(parsedItem)
         }
-      }, 2000);
-    }, []);
-    
-  
-    const saveItem = (newItem) => {
-      localStorage.setItem(itemName, JSON.stringify(newItem))
-      setItem(newItem);
-    }
-  
-    return {item, saveItem, loading, error}
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(true);
+      }
+    }, 2000);
+  }, []);
+
+
+  const saveItem = (newItem) => {
+    localStorage.setItem(itemName, JSON.stringify(newItem))
+    setItem(newItem);
   }
 
+  return { item, saveItem, loading, error }
+}
 
-function TodoProvider({children}){
+
+function useTodos(){
     const {
         item: todos, 
         saveItem: saveTodos, 
@@ -79,7 +78,7 @@ function TodoProvider({children}){
       const completeTodo = (text) => {
         const newTodos = [...todos];
         const todoIndex =newTodos.findIndex(todo => {
-          return todo.text == text
+          return todo.text === text
         })
     
         newTodos[todoIndex].completed = true;
@@ -90,7 +89,7 @@ function TodoProvider({children}){
       const deleteTodo = (text) => {
         const newTodos = [...todos];
         const todoIndex = newTodos.findIndex(
-          (todo) => todo.text == text
+          (todo) => todo.text === text
         );
     
         newTodos.splice(todoIndex, 1);
@@ -98,8 +97,7 @@ function TodoProvider({children}){
       
       }
 
-    return (
-        <TodoContext.Provider value={{
+    return {
             loading,
             error,
             completedTodos,
@@ -112,11 +110,9 @@ function TodoProvider({children}){
             openModal, 
             setOpenModal,
             addTodo
-        }}>
-            {children}
-        </TodoContext.Provider>
-    )
+    }
+    
 }
 
 
-export  {TodoContext,TodoProvider};
+export  {useTodos};
