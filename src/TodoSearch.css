@@ -11,3 +11,6 @@
     border-radius: 50vh;
     
 }
+.todo-search:disabled {
+    opacity: 25%;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TodosEmpy () {
+function TodosEmpty () {
   
   return (
     <p>Crea tu primer TODO...</p>
@@ -8,4 +8,4 @@ function TodosEmpy () {
   );
 }
 
-export { TodosEmpy }
+export { TodosEmpty }

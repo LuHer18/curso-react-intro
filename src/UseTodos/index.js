@@ -16,6 +16,7 @@ function useLocalStorage(itemName, initialValue) {
   const [item, setItem] = React.useState(initialValue);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
+  const [sincronized, setSincronized] = React.useState(true)
 
 
   React.useEffect(() => {
@@ -29,25 +30,32 @@ function useLocalStorage(itemName, initialValue) {
           parsedItem = initialValue;
         } else {
           parsedItem = JSON.parse(localStorageItem);
-          setItem(parsedItem)
+          
         }
-
+        setItem(parsedItem)
         setLoading(false);
+        setSincronized(true)
       } catch (error) {
         setLoading(false);
         setError(true);
       }
     }, 2000);
-  }, []);
+  }, [sincronized]);
 
 
   const saveItem = (newItem) => {
     localStorage.setItem(itemName, JSON.stringify(newItem))
     setItem(newItem);
   }
+  const sincronize = ()=> {
+    setLoading(true);
+    setSincronized(false);
+  }
 
-  return { item, saveItem, loading, error }
+  return { item, saveItem, loading, error, sincronize }
 }
+
+
 
 
 function useTodos(){
@@ -55,7 +63,8 @@ function useTodos(){
         item: todos, 
         saveItem: saveTodos, 
         loading, 
-        error
+        error,
+        sincronize: sincornizeTodos
       } = useLocalStorage('TODOS_V1', []);
       const [searchValue, setSearchValue] = React.useState('');
 
@@ -109,7 +118,8 @@ function useTodos(){
             setSearchValue,
             openModal, 
             setOpenModal,
-            addTodo
+            addTodo,
+            sincornizeTodos
     }
     
 }
