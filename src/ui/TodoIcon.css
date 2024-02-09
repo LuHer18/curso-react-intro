@@ -17,7 +17,11 @@
   .Icon-container-check--active {
     color: #4caf50;
   }
-  
+  .Icon-container-edit {
+    position: absolute;
+    top: -24px;
+    right: 40px;
+  }
   .Icon-container-delete {
     position: absolute;
     top: -24px;
@@ -34,6 +38,9 @@
   
   .Icon-container-check:hover .Icon-svg {
     fill: green;
+  }
+  .Icon-container-edit:hover .Icon-svg {
+    fill: blue;
   }
   .Icon-container-delete:hover .Icon-svg {
     fill: red;

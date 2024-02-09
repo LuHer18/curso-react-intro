@@ -1,14 +1,9 @@
 import React from 'react';
 import './createtodobutton.css'
 import add from './img/add.png'
-function CreateToDoButton({
-  openModal,
-  setOpenModal
-}) {
+function CreateToDoButton(props) {
     return (
-      <button className='create-todo-button' onClick={() => {
-        setOpenModal(!openModal)
-      }}><img src={add} /></button>
+      <button className='create-todo-button' onClick={props.onClick}><img src={add} /></button>
     );
   }
 
